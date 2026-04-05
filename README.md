@@ -58,6 +58,14 @@ Rendered in UI
 
 ---
 
+## AI Processing Approach
+
+The system uses a HuggingFace zero-shot classification model (BART MNLI) for email classification. This approach allows flexible categorization without task-specific training.
+
+The architecture is designed to be model-agnostic, meaning it can be easily extended to integrate other LLM providers such as OpenAI or Gemini. HuggingFace was chosen for this implementation to keep the system free, lightweight, and reproducible.
+
+---
+
 ## Prompt Design Strategy
 
 The system uses prompt-based LLM interaction for structured data extraction.
@@ -91,6 +99,8 @@ The system uses prompt-based LLM interaction for structured data extraction.
 - Fixed classification categories are sufficient for the use case
 - Short to medium-length email content is processed
 - HuggingFace free-tier APIs are used
+- Sensitive credentials are managed using environment variables and are excluded from version control using .gitignore
+- Confidence threshold for classification is chosen empirically for this MVP and can be tuned further based on real-world data
 
 ---
 
