@@ -1,4 +1,4 @@
-# Smart Email Processor – AI-Powered Workflow Engine
+# ✉️Smart Email Processor – AI-Powered Workflow Engine
 
 ## Overview
 This project is a full-stack application that classifies and processes unstructured email content using LLMs.
