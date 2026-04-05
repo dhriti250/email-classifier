@@ -102,6 +102,7 @@ The system uses prompt-based LLM interaction for structured data extraction.
 - Add retry and validation mechanisms for LLM outputs
 - Allow users to edit extracted results
 - Enhance UI with filtering and search capabilities
+- Currently supports text input; file upload and multilingual support can be added
 
 ---
 
