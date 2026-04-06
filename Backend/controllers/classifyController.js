@@ -11,7 +11,7 @@ export const classifyEmail = async (req, res) => {
     const result = await classifyWithLLM(text);
 
     // fallback logic
-    if (result.confidence < 0.6) {
+    if (result.confidence < 0.2) {
       return res.json({
         category: "Human Review Required",
         confidence: result.confidence,

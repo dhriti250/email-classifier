@@ -1,6 +1,25 @@
 //hf
 import axios from "axios";
 
+const categoryMap = {
+  business: "Business",
+  recruit: "Recruitment",
+  spam: "Spam",
+  personal: "Personal",
+};
+
+function normalizeCategory(label) {
+  if (!label) return "Other";  
+
+  const l = label.toLowerCase();
+
+  for (const key in categoryMap) {
+    if (l.includes(key)) return categoryMap[key];
+  }
+
+  return "Other";
+}
+
 //LLM extraction using HuggingFace
 const extractWithLLM = async (text, category) => {
   try {
@@ -113,22 +132,30 @@ export const classifyWithLLM = async (text) => {
 
     //NEW FORMAT
     if (Array.isArray(result) && result[0].label) {
-      category = result[0].label;
+      category = normalizeCategory(result[0].label);
       confidence = result[0].score;
     }
 
     //OLD FORMAT
     else if (result.labels && result.scores) {
-      category = result.labels[0];
+      category = normalizeCategory(result.labels[0]);
       confidence = result.scores[0];
     }
 
     else {
-      throw new Error("Unexpected HF format");
+      category = "Other";
+      confidence = 0.3;
     }
 
 
-      const data = await extractWithLLM(text, category);
+      const data = {
+        category,
+        summary: text.slice(0, 100),
+        entities: text
+          .split(" ")
+          .filter(word => word[0] === word[0]?.toUpperCase())
+          .slice(0, 3)
+      };
 
     return {
       category,
